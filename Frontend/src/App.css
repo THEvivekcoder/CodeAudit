@@ -845,3 +845,30 @@ footer {
 
 }
 
+.developerName {
+  margin-top: 3px;
+  font-size: 10px;
+  color: #636b7a;
+  letter-spacing: 0.3px;
+}
+
+.developerName:hover {
+  color: #a5b4fc;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+}
+
+.developerName {
+  margin: 3px 0 0;
+  font-size: 9px;
+  color: #5f6675;
+  letter-spacing: 0.25px;
+  transition: color 0.2s ease;
+}
+
+.developerName:hover {
+  color: #a5b4fc;
+}
