@@ -19,9 +19,7 @@ import "highlight.js/styles/github-dark.css";
 import axios from "axios";
 import "./App.css";
 
-
 function App() {
-
   const [code, setCode] = useState(`function sum() {
   return 1 + 1;
 }`);
@@ -29,58 +27,51 @@ function App() {
   const [review, setReview] = useState("");
   const [loading, setLoading] = useState(false);
 
-
   async function reviewCode() {
-
     if (!code.trim()) {
       setReview("Please enter some code first.");
       return;
     }
 
     try {
-
       setLoading(true);
       setReview("");
 
       const response = await axios.post(
-        "http://localhost:3000/ai/get-response",
+        "https://codeaudit-t382.onrender.com/ai/get-response",
         {
           code: code,
         }
       );
 
       setReview(response.data);
-
     } catch (error) {
-
       console.error("Review Error:", error);
 
       setReview(
         error.response?.data?.error ||
-        "Unable to review code. Please try again."
+          "Unable to review code. Please try again."
       );
-
     } finally {
-
       setLoading(false);
-
     }
   }
-
 
   function clearCode() {
     setCode("");
     setReview("");
   }
 
-
   return (
-
     <div className="app">
 
-      {/* NAVBAR */}
+      {/* =========================
+          NAVBAR
+      ========================= */}
 
       <nav className="navbar">
+
+        {/* BRAND */}
 
         <div className="brand">
 
@@ -88,13 +79,20 @@ function App() {
             &lt;/&gt;
           </div>
 
-          <div>
+          <div className="brandText">
             <h1>CodeScope</h1>
+
             <span>AI Code Reviewer</span>
+
+            <p className="developerName">
+              Developed by Vivek Kumar
+            </p>
           </div>
 
         </div>
 
+
+        {/* NAVBAR RIGHT */}
 
         <div className="navRight">
 
@@ -104,7 +102,7 @@ function App() {
           </div>
 
           <a
-            href="https://github.com/"
+            href="https://github.com/THEvivekcoder/CodeAudit"
             target="_blank"
             rel="noreferrer"
             className="githubButton"
@@ -117,12 +115,16 @@ function App() {
       </nav>
 
 
-      {/* MAIN */}
+      {/* =========================
+          MAIN WORKSPACE
+      ========================= */}
 
       <main className="workspace">
 
 
-        {/* LEFT PANEL */}
+        {/* =========================
+            LEFT PANEL
+        ========================= */}
 
         <section className="panel editorPanel">
 
@@ -139,19 +141,30 @@ function App() {
 
               <div>
                 <h2>Code Editor</h2>
-                <p>Paste your code for analysis</p>
+
+                <p>
+                  Paste your code for analysis
+                </p>
               </div>
 
             </div>
 
 
+            {/* EDITOR ACTIONS */}
+
             <div className="editorActions">
 
-              <select className="languageSelect">
-                <option>JavaScript</option>
+              <select
+                className="languageSelect"
+                defaultValue="javascript"
+              >
+                <option value="javascript">
+                  JavaScript
+                </option>
               </select>
 
               <button
+                type="button"
                 className="clearButton"
                 onClick={clearCode}
               >
@@ -163,13 +176,20 @@ function App() {
           </div>
 
 
-          {/* FILE BAR */}
+          {/* =========================
+              FILE BAR
+          ========================= */}
 
           <div className="fileBar">
 
             <div className="fileName">
-              <span className="jsIcon">JS</span>
+
+              <span className="jsIcon">
+                JS
+              </span>
+
               main.js
+
             </div>
 
             <span className="lineCount">
@@ -179,21 +199,22 @@ function App() {
           </div>
 
 
-          {/* CODE EDITOR */}
+          {/* =========================
+              CODE EDITOR
+          ========================= */}
 
           <div className="editorContainer">
 
             <Editor
-
               value={code}
 
-              onValueChange={(newCode) =>
-                setCode(newCode)
-              }
+              onValueChange={(newCode) => {
+                setCode(newCode);
+              }}
 
-              highlight={(code) =>
+              highlight={(codeValue) =>
                 highlight(
-                  code,
+                  codeValue,
                   languages.js
                 )
               }
@@ -212,42 +233,49 @@ function App() {
 
                 minHeight: "100%",
               }}
-
             />
 
           </div>
 
 
-          {/* EDITOR FOOTER */}
+          {/* =========================
+              EDITOR FOOTER
+          ========================= */}
 
           <div className="editorFooter">
 
             <div className="editorInfo">
-              <span>JavaScript</span>
-              <span>UTF-8</span>
+
+              <span>
+                JavaScript
+              </span>
+
+              <span>
+                UTF-8
+              </span>
+
             </div>
 
 
             <button
+              type="button"
               className="reviewButton"
               onClick={reviewCode}
               disabled={loading}
             >
 
               {loading ? (
-
                 <>
                   <span className="spinner"></span>
+
                   Analyzing...
                 </>
-
               ) : (
-
                 <>
                   <span>✦</span>
+
                   Review Code
                 </>
-
               )}
 
             </button>
@@ -257,8 +285,9 @@ function App() {
         </section>
 
 
-
-        {/* RIGHT PANEL */}
+        {/* =========================
+            RIGHT PANEL
+        ========================= */}
 
         <section className="panel reviewPanel">
 
@@ -274,18 +303,25 @@ function App() {
               </span>
 
               <div>
-                <h2>AI Review</h2>
+
+                <h2>
+                  AI Review
+                </h2>
+
                 <p>
                   Bugs, security & improvements
                 </p>
+
               </div>
 
             </div>
 
 
-            {review && (
+            {/* COPY BUTTON */}
 
+            {review && (
               <button
+                type="button"
                 className="copyButton"
                 onClick={() =>
                   navigator.clipboard.writeText(review)
@@ -293,19 +329,20 @@ function App() {
               >
                 Copy
               </button>
-
             )}
 
           </div>
 
 
-
-          {/* REVIEW CONTENT */}
+          {/* =========================
+              REVIEW CONTENT
+          ========================= */}
 
           <div className="reviewContent">
 
-
             {loading ? (
+
+              /* LOADING STATE */
 
               <div className="loadingState">
 
@@ -315,7 +352,9 @@ function App() {
                   <span></span>
                 </div>
 
-                <h3>Reviewing your code</h3>
+                <h3>
+                  Reviewing your code
+                </h3>
 
                 <p>
                   Checking bugs, security,
@@ -324,8 +363,9 @@ function App() {
 
               </div>
 
-
             ) : review ? (
+
+              /* AI REVIEW */
 
               <div className="markdown">
 
@@ -339,8 +379,9 @@ function App() {
 
               </div>
 
-
             ) : (
+
+              /* EMPTY STATE */
 
               <div className="emptyState">
 
@@ -358,6 +399,8 @@ function App() {
                   security issues and improvements.
                 </p>
 
+
+                {/* FEATURES */}
 
                 <div className="features">
 
@@ -394,7 +437,9 @@ function App() {
       </main>
 
 
-      {/* FOOTER */}
+      {/* =========================
+          FOOTER
+      ========================= */}
 
       <footer>
 
@@ -409,9 +454,7 @@ function App() {
       </footer>
 
     </div>
-
   );
 }
-
 
 export default App;
