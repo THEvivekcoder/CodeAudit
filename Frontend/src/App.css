@@ -872,3 +872,122 @@ footer {
 .developerName:hover {
   color: #a5b4fc;
 }
+<<<<<<< HEAD
+=======
+
+
+/* =========================
+   PDF DOWNLOAD
+========================= */
+
+.pdfDownloadWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+
+  margin-top: 28px;
+  padding-top: 20px;
+
+  border-top: 1px solid #222731;
+}
+
+.pdfButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  height: 40px;
+  padding: 0 20px;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+
+  border: 0;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #059669, #047857);
+
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.25);
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    opacity 0.2s;
+}
+
+.pdfButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(5, 150, 105, 0.35);
+}
+
+.pdfButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.pdfButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.pdfIcon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Spinner inside PDF button */
+.pdfSpinner {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+
+  animation: pdfSpin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pdfSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error toast */
+.pdfError {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 9px 14px;
+
+  color: #fca5a5;
+
+  font-size: 11px;
+  line-height: 1.5;
+
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  border-radius: 7px;
+
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.pdfError::before {
+  content: "⚠";
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 550px) {
+  .pdfButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+>>>>>>> eff1eaf (Add download feature)

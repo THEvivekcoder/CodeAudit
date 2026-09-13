@@ -19,6 +19,11 @@ import "highlight.js/styles/github-dark.css";
 import axios from "axios";
 import "./App.css";
 
+<<<<<<< HEAD
+=======
+import { generateReviewPDF } from "./utils/generateReviewPDF";
+
+>>>>>>> eff1eaf (Add download feature)
 function App() {
   const [code, setCode] = useState(`function sum() {
   return 1 + 1;
@@ -27,6 +32,12 @@ function App() {
   const [review, setReview] = useState("");
   const [loading, setLoading] = useState(false);
 
+<<<<<<< HEAD
+=======
+  const [pdfLoading, setPdfLoading] = useState(false);
+  const [pdfError, setPdfError] = useState("");
+
+>>>>>>> eff1eaf (Add download feature)
   async function reviewCode() {
     if (!code.trim()) {
       setReview("Please enter some code first.");
@@ -60,8 +71,30 @@ function App() {
   function clearCode() {
     setCode("");
     setReview("");
+    setPdfError("");
   }
 
+<<<<<<< HEAD
+=======
+  async function downloadPDF() {
+    setPdfError("");
+    setPdfLoading(true);
+    try {
+      await generateReviewPDF({
+        code,
+        language: "JavaScript",
+        review,
+        date: new Date(),
+      });
+    } catch (err) {
+      console.error("PDF generation error:", err);
+      setPdfError("Failed to generate PDF. Please try again.");
+    } finally {
+      setPdfLoading(false);
+    }
+  }
+
+>>>>>>> eff1eaf (Add download feature)
   return (
     <div className="app">
 
@@ -377,6 +410,36 @@ function App() {
                   {review}
                 </Markdown>
 
+                {/* PDF DOWNLOAD */}
+
+                <div className="pdfDownloadWrapper">
+
+                  {pdfError && (
+                    <p className="pdfError">{pdfError}</p>
+                  )}
+
+                  <button
+                    type="button"
+                    className="pdfButton"
+                    onClick={downloadPDF}
+                    disabled={pdfLoading}
+                    aria-label="Download review as PDF"
+                  >
+                    {pdfLoading ? (
+                      <>
+                        <span className="pdfSpinner"></span>
+                        Generating PDF…
+                      </>
+                    ) : (
+                      <>
+                        <span className="pdfIcon">⬇</span>
+                        Download Review as PDF
+                      </>
+                    )}
+                  </button>
+
+                </div>
+
               </div>
 
             ) : (
@@ -457,4 +520,8 @@ function App() {
   );
 }
 
+<<<<<<< HEAD
 export default App;
+=======
+export default App;
+>>>>>>> eff1eaf (Add download feature)
